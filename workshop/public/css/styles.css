@@ -1,0 +1,61 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* สีพื้นหลังไล่สีแดงและเหลือง */
+.bg-color {
+    background: linear-gradient(to right, #ffeb3b, #d32f2f);  /* ไล่สีจากสีเหลืองอ่อนถึงแดงเข้ม */
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+/* เปลี่ยนสีข้อความในหัวข้อและปุ่มเป็นสีแดงเข้ม */
+h3, .form-label {
+    color: #d32f2f; /* สีแดงเข้ม */
+}
+
+/* ปรับไอคอนเป็นสีแดงเข้ม */
+.input-group-text {
+    background-color: #d32f2f; /* สีแดงเข้ม */
+    color: white;
+}
+
+/* ปรับ input เป็นขอบสีเหลือง */
+.form-control {
+    border: 1px solid #fdd835; /* สีเหลือง */
+}
+
+/* ปุ่ม Login เป็นสีแดง */
+.btn-primary {
+    background-color: #d32f2f;
+    border: none;
+}
+
+/* เมื่อ hover ที่ปุ่ม Login */
+.btn-primary:hover {
+    background-color: #b71c1c; /* สีแดงเข้มขึ้น */
+}
+
+/* โลโก้จัดกึ่งกลาง */
+.login-container img {
+    margin-bottom: 20px;
+}
