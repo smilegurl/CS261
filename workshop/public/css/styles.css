@@ -59,3 +59,17 @@ h3, .form-label {
 .login-container img {
     margin-bottom: 20px;
 }
+
+/* แสดงข้อความ Success/Failure กลางจอ */
+#message {
+    display: none; /* ซ่อนข้อความเริ่มต้น */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
