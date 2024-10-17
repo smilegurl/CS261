@@ -1,14 +1,22 @@
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // หยุดการส่งฟอร์ม
+    event.preventDefault(); // Stop form submission
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const messageDiv = document.getElementById('message');
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
+    const modalContent = document.getElementById('modalContent');
 
-    // รีเซ็ตข้อความก่อนหน้า
-    messageDiv.style.display = 'none'; // ซ่อนข้อความเมื่อเริ่มต้นใหม่
+    // Clear any previous error messages
+    loginErrorMessage.innerHTML = '';
 
-    // ส่งข้อมูลไปยัง API
+    // Check if fields are empty
+    if (username === '' || password === '') {
+        loginErrorMessage.innerHTML = 'Please fill out all fields!';
+        return;
+    }
+
+    // Send data to API
     fetch('https://restapi.tu.ac.th/api/v1/auth/Ad/verify', {
         method: 'POST',
         headers: {
@@ -20,8 +28,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(response => response.json())
     .then(data => {
         if (data.status) {
-            // เมื่อเข้าสู่ระบบสำเร็จ
-            const modalContent = `
+            // Success - show modal with data
+            modalContent.innerHTML = `
                 <p>Message: ${data.message}</p>
                 <p>Username: ${data.username}</p>
                 <p>Display Name (TH): ${data.displayname_th}</p>
@@ -30,21 +38,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 <p>Department: ${data.department}</p>
                 <p>Faculty: ${data.faculty}</p>
             `;
-            console.log(modalContent); // สามารถใช้ console log เพื่อดูข้อมูล
-            messageDiv.innerHTML = 'Success'; // แสดงข้อความเมื่อเข้าสู่ระบบสำเร็จ
-            messageDiv.style.color = 'green'; // เปลี่ยนเป็นสีเขียวเมื่อสำเร็จ
-            messageDiv.style.display = 'block'; // แสดงข้อความ
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
         } else {
-            // เมื่อเข้าสู่ระบบไม่สำเร็จ
-            messageDiv.innerHTML = 'Incorrect Username or Password'; // แสดงข้อความผิดพลาด
-            messageDiv.style.color = 'red'; // เปลี่ยนเป็นสีแดงเมื่อไม่สำเร็จ
-            messageDiv.style.display = 'block'; // แสดงข้อความ
+            // Failure - show error message
+            loginErrorMessage.innerHTML = 'Password or Username Invalid!';
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        messageDiv.innerHTML = 'เกิดข้อผิดพลาดในการเชื่อมต่อ'; // แสดงข้อความผิดพลาด
-        messageDiv.style.color = 'red'; // เปลี่ยนเป็นสีแดง
-        messageDiv.style.display = 'block'; // แสดงข้อความ
+        loginErrorMessage.innerHTML = 'Error connecting to server. Please try again later.';
     });
 });
